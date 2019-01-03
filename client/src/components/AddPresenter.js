@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import './AddPresentation.css';
 import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
 
 function generateID() {
@@ -64,7 +65,7 @@ axios
   }
   render () {
     return (
-      <div>
+      <div className="container addPresentation">
         <Form onSubmit={this.handleSubmit} method="POST">
           <FormGroup>
             <Label>Presenter Name:</Label>{' '}

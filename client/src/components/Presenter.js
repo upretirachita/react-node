@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+import { Table } from 'reactstrap';
 export class Presenter extends Component {
  
   render() {
@@ -8,9 +9,9 @@ export class Presenter extends Component {
     return (
       <div>
         
-          <div className="container">
-        <table className="table table-bordered" >
-          <tbody>
+        <div className="container">
+        <Table dark className="tableData" >
+         
           <Link to={`/presenter/${id}`}>
             <tr>
               <td>{name}</td>
@@ -21,8 +22,8 @@ export class Presenter extends Component {
               <td>{currentTime}</td>
             </tr>
             </Link>
-          </tbody>
-        </table>
+         
+        </Table>
       </div>
       </div>
       

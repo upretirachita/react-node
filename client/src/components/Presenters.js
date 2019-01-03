@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Presenter from './Presenter';
+import { Table } from 'reactstrap';
 class Presenters extends Component {
     state = {
         presenters:[]
@@ -27,7 +28,7 @@ renderStudents = () => {
           <p>{this.state.presenters.length}</p>
         <div className="container">
         <h2>Presenters Detail</h2>
-        <table className="table table-bordered">
+        <Table dark>
           <thead>
             <tr>
               <th>Presenter Name</th>
@@ -38,7 +39,7 @@ renderStudents = () => {
               <th>Current Time</th>
             </tr>
           </thead>
-        </table>
+        </Table>
       </div>
         
        {this.renderStudents()}
