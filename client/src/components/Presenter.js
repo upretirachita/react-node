@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-
 import { Link } from "react-router-dom";
 import { Table } from 'reactstrap';
+
+
 export class Presenter extends Component {
- 
   render() {
-      const {name,evaluatorName,presentationTopic,article,id,currentTime} = this.props.presenter;
+      const {name,evaluatorName,presentationTopic,article,id,monitor,currentTime} = this.props.presenter;
     return (
       <div>
         
         <div className="container">
         <Table dark className="tableData" >
-         
-          <Link to={`/presenter/${id}`}>
             <tr>
               <td>{name}</td>
               <td>{evaluatorName}</td>
@@ -20,9 +18,8 @@ export class Presenter extends Component {
               <td>{article}</td>
               <td>{id}</td>
               <td>{currentTime}</td>
+              <td><Link to={`/presenter/${id}`}>View </Link>Edit Delete{monitor}</td>  
             </tr>
-            </Link>
-         
         </Table>
       </div>
       </div>

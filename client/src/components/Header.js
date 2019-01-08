@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 
 const Header = () => {
   return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <Link class="navbar-brand" to="/">Integrify Students</Link>
+      <nav class="navbar navbar-expand-lg ">
+          <Link class="navbar-brand" to="/">Integrify Presenters</Link>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                   <li class="nav-item active">

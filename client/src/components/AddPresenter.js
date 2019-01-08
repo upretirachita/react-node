@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './AddPresentation.css';
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
-function generateID() {
-  var number = Math.random();
-  number.toString(10);
-  var id = number.toString(10).substr(2, 7);
-  return id;
-}
+
 function displayDateTime() {
   var today = new Date();
   var year = today.getFullYear();
@@ -43,14 +38,16 @@ class AddPresenter extends Component {
     evaluatorName:'',
     presentationTopic:'',
     article:'',
+    monitor:'',
     currentTime:displayDateTime(),
-    id:generateID(),
+    cancel:''
   }
   handleChange = (e) => {
       this.setState({
           [e.target.name]:e.target.value
       })
   }
+  
   handleSubmit = (e) => {
       e.preventDefault();
      console.log (this.state);
@@ -63,10 +60,12 @@ axios
 
  
   }
+
   render () {
     return (
       <div className="container addPresentation">
         <Form onSubmit={this.handleSubmit} method="POST">
+
           <FormGroup>
             <Label>Presenter Name:</Label>{' '}
             <Input
@@ -75,7 +74,7 @@ axios
               name="name"
               value={this.state.name}
               onChange={this.handleChange}
-              placeholder="Name"
+              placeholder="Presenter Name"
             />
 
           </FormGroup>
@@ -87,7 +86,7 @@ axios
               name="evaluatorName"
               value={this.state.evaluatorName}
               onChange={this.handleChange}
-              placeholder="evaluatorName"
+              placeholder="Evaluator Name"
             />
           </FormGroup>
           <FormGroup>
@@ -97,7 +96,7 @@ axios
               name="presentationTopic"
               value={this.state.presentationTopic}
               onChange={this.handleChange}
-              placeholder="PresentationTopic"
+              placeholder="Presentation Topic"
             />
           </FormGroup>
           <FormGroup>
@@ -115,7 +114,7 @@ axios
             <Input
               type="text"
               name="id"
-              value={this.state.id}
+              value={this.props.id}
               onChange={this.handleChange}
               placeholder="ID"
             />
@@ -130,13 +129,11 @@ axios
               placeholder="currentTime"
             />
           </FormGroup>
-         
           <div>
             <Button color="primary" >
               Add Presenters
             </Button>
           </div>
-
         </Form>
       </div>
     );

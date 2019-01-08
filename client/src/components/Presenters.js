@@ -1,33 +1,24 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Presenter from './Presenter';
+import PresenterDetail from './PresenterDetail'
 import { Table } from 'reactstrap';
 class Presenters extends Component {
-    state = {
-        presenters:[]
-    }
-    componentDidMount () {
-        axios.get('/presenters').then((response) => {
-            console.log(response);
-            this.setState({
-                presenters:response.data
-            })
-        })
-    }
-renderStudents = () => {
-    let presenters = this.state.presenters;
+   
+renderPresenters = () => {
+    console.log("presenters",this.props)
+    let presenters = this.props.presenters;
     return presenters.map((presenter) => {
         return <Presenter key={presenter._id} presenter = {presenter}/>
     })
 }
 
-  render() {
-      
+ render() {  
     return (
       <div>
-          <p>{this.state.presenters.length}</p>
+          <p>{this.props.presenters.length}</p>
         <div className="container">
-        <h2>Presenters Detail</h2>
+        <h2>Presenters Content</h2>
         <Table dark>
           <thead>
             <tr>
@@ -37,13 +28,13 @@ renderStudents = () => {
               <th>Article</th>
               <th>ID</th>
               <th>Current Time</th>
+              <th>Monitor</th>
             </tr>
           </thead>
         </Table>
       </div>
         
-       {this.renderStudents()}
-
+       {this.renderPresenters()}
       </div>
     )
   }
