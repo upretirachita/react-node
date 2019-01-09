@@ -4,7 +4,7 @@ const {
   showSingleStudent,
   addStudent,
   editStudent,
-  deleteStudent,
+  deletePresenter,
 } = require ('../controllers/presenters.controller');
 const studentRouter = express.Router ();
 
@@ -13,7 +13,7 @@ studentRouter.get ('/presenters', showStudents);
 studentRouter.get('/presenters/:id',showSingleStudent);
 studentRouter.post('/presenters', addStudent);
 studentRouter.put('/presenters/:id', editStudent);
-studentRouter.delete('/presenters/:id', deleteStudent);
+studentRouter.delete('/presenters/:id', deletePresenter);
 
 
 module.exports = studentRouter;

@@ -4,7 +4,7 @@ module.exports = {
     showSingleStudent:showSingleStudent,
     addStudent:addStudent,
     editStudent:editStudent,
-    deleteStudent:deleteStudent
+    deletePresenter:deletePresenter
 }
 
 function showStudents (req, res) {
@@ -56,7 +56,7 @@ function editStudent (req, res) {
   });
 }
 
-function deleteStudent (req, res) {
+function deletePresenter (req, res) {
   const _id = req.params.id;
   Student.findByIdAndRemove ({_id}, (err, student) => {
     if (err) {
@@ -65,3 +65,4 @@ function deleteStudent (req, res) {
     res.send (`A student with id ${_id} has been removed.`);
   });
 }
+

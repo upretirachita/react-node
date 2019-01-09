@@ -20,7 +20,7 @@ function generateID() {
 class App extends Component {
   state = {
     presenters:[],
-    id:generateID(),
+    id:generateID()
 }
 componentDidMount () {
     axios.get('/presenters').then((response) => {
@@ -31,14 +31,38 @@ componentDidMount () {
     })
 }
 
-deletePresenter = id => {
-  const presenters = this.state.presenters.filter(presenter => presenter.id !== id);
+deletePresenter = _id => {
+  const presenters = this.state.presenters.filter(presenter => presenter._id !== _id);
   console.log("deleted",presenters);
   this.setState({
     presenters,
     flag: true
   });
+  axios
+  .delete (`/presenters/${_id}`)
+  .then (response => {
+   //console.log ('I am responding',response);
+ })
+ .catch (err => console.log (err));
+ console.log("First",_id)
 };
+
+
+/*
+deletePresenter = (presenter) => {
+  const updatedVal = this.state.presenters.filter(pre => pre._id !== presenter._id);
+  this.setState({
+  presenters: updatedVal,
+    flag:true
+});
+  axios
+ .delete (`/presenters/${presenter._id}`)
+ .then (response => {
+  //console.log ('I a m response',response);
+})
+.catch (err => console.log (err));
+}
+*/
 
   render() {
     return (
@@ -52,7 +76,7 @@ deletePresenter = id => {
             render = {props=>(
               <AddPresenter 
               {...props}
-              id = {this.state.id}
+              id = {this._id}
               presenters={this.state.presenters}
              />)}
              />
@@ -62,7 +86,7 @@ deletePresenter = id => {
               {...props}
               presenters={this.state.presenters}
              />)} />
-            <Route path="/presenter/:id"
+            <Route path="/presenter/:_id"
              render = {props=>(
                <PresenterDetail 
                {...props}

@@ -23,5 +23,5 @@ const PresenterSchema = new Schema({
     }
 });
 
-const Presenter = mongoose.model('Student', PresenterSchema);
-module.exports = Presenter;
+const Student = mongoose.model('Student', PresenterSchema);
+module.exports = Student;

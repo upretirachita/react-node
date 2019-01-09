@@ -5,7 +5,7 @@ import { Table } from 'reactstrap';
 
 export class Presenter extends Component {
   render() {
-      const {name,evaluatorName,presentationTopic,article,id,monitor,currentTime} = this.props.presenter;
+      const {name,evaluatorName,presentationTopic,article,_id,monitor,currentTime} = this.props.presenter;
     return (
       <div>
         
@@ -16,9 +16,9 @@ export class Presenter extends Component {
               <td>{evaluatorName}</td>
               <td>{presentationTopic}</td>
               <td>{article}</td>
-              <td>{id}</td>
+              <td>{_id}</td>
               <td>{currentTime}</td>
-              <td><Link to={`/presenter/${id}`}>View </Link>Edit Delete{monitor}</td>  
+              <td><Link to={`/presenter/${_id}`}>View </Link>Edit Delete{monitor}</td>  
             </tr>
         </Table>
       </div>
