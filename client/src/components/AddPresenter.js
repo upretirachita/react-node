@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import axios from 'axios';
-import './AddPresentation.css';
-import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
-
+import React, { Component } from "react";
+import axios from "axios";
+import "./AddPresentation.css";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 function displayDateTime() {
   var today = new Date();
@@ -33,41 +32,68 @@ function displayDateTime() {
 }
 class AddPresenter extends Component {
   state = {
-    name: '',
-    age: '',
-    evaluatorName:'',
-    presentationTopic:'',
-    article:'',
-    monitor:'',
-    currentTime:displayDateTime(),
-    cancel:''
-  }
-  handleChange = (e) => {
-      this.setState({
-          [e.target.name]:e.target.value
+    name: "",
+    age: "",
+    evaluatorName: "",
+    presentationTopic: "",
+    article: "",
+    monitor: "",
+    currentTime: displayDateTime(),
+    cancel: "",
+    errors: {}
+  };
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+  /*
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+    axios
+      .post("/presenters", this.state)
+      .then(response => {
+        console.log(response);
       })
-  }
-  
-  handleSubmit = (e) => {
-      e.preventDefault();
-     console.log (this.state);
-axios
-  .post ('/presenters', this.state)
-  .then (response => {
-    console.log (response);
-  })
-  .catch (err => console.log (err));
+      .catch(err => console.log(err));
+  };
+*/
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+    let {
+      name,
+      evaluatorName,
+      presentationTopic,
+      article,
+      currentTime
+    } = this.state;
+    let data = { name, evaluatorName, presentationTopic, article, currentTime };
+    axios
+      .post("/presenters", data)
+      .then(response => {
+        this.setState({
+          errors: {}
+        });
+        console.log("newResponse", response);
+      })
+      .catch(err => {
+        console.log("err", err);
+        return this.setState({
+          errors: err.response.data
+        });
+      });
+    console.log("This is validator", this.state);
+  };
 
- 
-  }
-
-  render () {
+  render() {
+    const { errors } = this.state;
     return (
       <div className="container addPresentation">
         <Form onSubmit={this.handleSubmit} method="POST">
-
           <FormGroup>
-            <Label>Presenter Name:</Label>{' '}
+            <Label>Presenter Name:</Label>{" "}
             <Input
               className="custom-input"
               type="text"
@@ -76,11 +102,11 @@ axios
               onChange={this.handleChange}
               placeholder="Presenter Name"
             />
-
+            <p style={{ color: "red" }}>{errors.name}</p>
           </FormGroup>
-         
+
           <FormGroup>
-            <Label>Evaluator Name</Label>{' '}
+            <Label>Evaluator Name</Label>{" "}
             <Input
               type="text"
               name="evaluatorName"
@@ -88,6 +114,7 @@ axios
               onChange={this.handleChange}
               placeholder="Evaluator Name"
             />
+            <p style={{ color: "red" }}>{errors.evaluatorName}</p>
           </FormGroup>
           <FormGroup>
             <Label>Presentation Topic</Label>
@@ -98,6 +125,7 @@ axios
               onChange={this.handleChange}
               placeholder="Presentation Topic"
             />
+            <p style={{ color: "red" }}>{errors.presentationTopic}</p>
           </FormGroup>
           <FormGroup>
             <Label>Article</Label>
@@ -108,6 +136,7 @@ axios
               onChange={this.handleChange}
               placeholder="Article"
             />
+            <p style={{ color: "red" }}>{errors.article}</p>
           </FormGroup>
           <FormGroup>
             <Label>ID</Label>
@@ -130,9 +159,7 @@ axios
             />
           </FormGroup>
           <div>
-            <Button color="primary" >
-              Add Presenters
-            </Button>
+            <Button color="primary">Add Presenters</Button>
           </div>
         </Form>
       </div>

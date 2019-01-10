@@ -35,6 +35,14 @@ Table ,tr{
 .App-link {
   color: #61dafb;
 }
+/********************Card***************************/
+.card-body{
+  background-color: #000000;
+  color:#ffffff;
+  width:80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
 
 /********************************NavBar***********************************/
 

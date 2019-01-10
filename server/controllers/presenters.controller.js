@@ -1,10 +1,12 @@
 const Student = require('../models/presenter');
+const validateAddPresenterInput = require('../validation/add-presenter');
+
 module.exports = {
     showStudents:showStudents,
     showSingleStudent:showSingleStudent,
     addStudent:addStudent,
     editStudent:editStudent,
-    deletePresenter:deletePresenter
+    deletePresenter:deletePresenter,
 }
 
 function showStudents (req, res) {
@@ -30,8 +32,10 @@ function showSingleStudent (req, res) {
     res.json (student);
   });
 }
-
+///Add student without validation 
+/*
 function addStudent (req, res) {
+
   const newStudent = new Student (req.body);
   newStudent
     .save ()
@@ -41,11 +45,32 @@ function addStudent (req, res) {
     .catch (err => console.log ('Error', err));
   res.send ('A new student has been added');
 }
+*/
+function addStudent(req, res) {
+  const {errors, isValid} = validateAddPresenterInput(req.body);
+  //check validitation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+  const newStudent = new Student(req.body);
+  newStudent
+    .save()
+    .then(student => {
+      console.log('Data is saved');
+      res.json(student);
+    })
+    .catch(err => console.log('Error', err));
+}
 
 function editStudent (req, res) {
   const _id = req.params.id;
   Student.findOne ({_id}, (err, student) => {
-    (student.name = req.body.name), (student.age = req.body.age);
+    (student.name = req.body.name),
+    (student.age = req.body.age),
+    (student.evaluatorName = req.body.evaluatorName);
+    (student.presentationTopic = req.body.presentationTopic);
+    (student.article = req.body.article);
+    (student.currentTime = req.body.currentTime);
     student.save (err => {
       if (err) {
         res.status (404).send (err);
