@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import Presenter from "./Presenter";
 import { Table } from "reactstrap";
+import {
+  Navbar,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 class Presenters extends Component {
   renderPresenters = () => {
@@ -24,6 +34,18 @@ class Presenters extends Component {
                 <th>Evaluator Name </th>
                 <th>Presentation Topic</th>
                 <th>Article</th>
+                {/* <th>
+                  <UncontrolledDropdown setActiveFromChild>
+                    <DropdownToggle tag="a" className="nav-link" caret>
+                      Dropdown
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem tag="a" href="/blah" active>
+                        Link
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </th> */}
                 <th>ID</th>
                 <th>Current Time</th>
                 <th>Monitor</th>

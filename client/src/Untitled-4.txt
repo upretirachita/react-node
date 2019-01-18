@@ -1,0 +1,84 @@
+import React, { Component } from "react";
+import { Card, CardBody, Button } from "reactstrap";
+
+const PresenterDetail = props => {
+  let post = props.presenters.find(post => {
+    return post._id === props.match.params._id && post;
+  });
+  console.log("postid", post._id);
+  console.log("editis HEAR", props.isEditMode);
+  console.log("NameEdited",post.name)
+
+  const deleteOneNode = () => {
+    props.deletePresenter(post._id);
+    props.history.push("/presenters");
+  };
+  const RenderEditView = () => {
+    return (
+      <div>
+        
+        <CardBody>
+        <section>
+          <input
+           type="text"
+           name="name"
+            defaultValue={props.name}
+            onChange={props.handleChange}
+            />  
+          <input
+           type="text"
+            defaultValue={props.evaluatorName}
+            onChange={props.handleChange}
+           />
+            <input
+           type="text"
+            defaultValue={props.presentationTopic}
+            onChange={props.handleChange}
+            />
+             <input
+           type="text"
+            defaultValue={props.article}
+            onChange={props.handleChange}
+             />
+            <input
+           type="text"
+            defaultValue={props.currentTime}
+            onChange={props.handleChange}
+            />
+          <button onClick={props.handelEditMode}>X</button>
+          <button onClick={props.updateComponentValue}>OK</button>
+          </section>
+        </CardBody>
+      </div>
+    );
+  };
+
+  const RenderDefaultView = () => {
+    return (
+      <div onDoubleClick={props.handelEditMode}>
+        <CardBody>
+          <h3>Presenter Detail</h3>
+          <h5> Presenter Name:{post.name}</h5>
+          <h5>Evaluator Name:{post.evaluatorName}</h5>
+          <h5>Presentation Topic:{post.presentationTopic}</h5>
+          <h5>Article:{post.article}</h5>
+          <h5>Date{post.currentTime}</h5>
+          <Button onClick={deleteOneNode}>Delete</Button>
+        </CardBody>
+      </div>
+    );
+  };
+  return (
+    <div className="container test">
+      <div>
+        <Card>
+          {props.isEditMode ?
+          <RenderEditView/>:
+          <RenderDefaultView />}
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default PresenterDetail;

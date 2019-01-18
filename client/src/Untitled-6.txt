@@ -1,29 +1,28 @@
-import React from "react";
-
+import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-
-const AddPresenter = props => {
- 
-  console.log(props)
-  console.log("props",props.name)
-
+const EditPresentation = props => {
+  let post = props.presenters.find(post => {
+    return post._id === props.match.params._id ;
+  });
+  console.log("hear is propsfrom Editpresentation",props)
+  console.log("EditedName",post.name)
+  console.log("editID",post._id)
   return (
     <div className="container test">
-     
+      <div>
       <div className="container addPresentation">
-        <Form onSubmit={props.handleSubmit} method="POST">
+        <Form onSubmit={post.handleSubmit} method="POST">
           <FormGroup>
             <Label>Presenter Name:</Label>{" "}
             <Input
               className="custom-input"
               type="text"
               name="name"
-              value={props.name}
-              onChange={props.handleChange}
+              value={post.name}
+              onChange={post.handleChange}
               placeholder="Presenter Name"
             />
-            <p style={{ color: "red" }}>{props.errors.name}</p>
           </FormGroup>
 
           <FormGroup>
@@ -31,54 +30,62 @@ const AddPresenter = props => {
             <Input
               type="text"
               name="evaluatorName"
-              value={props.evaluatorName}
-              onChange={props.handleChange}
+              value={post.evaluatorName}
+              onChange={post.handleChange}
               placeholder="Evaluator Name"
             />
-            <p style={{ color: "red" }}>{props.errors.evaluatorName}</p>
           </FormGroup>
           <FormGroup>
             <Label>Presentation Topic</Label>
             <Input
               type="text"
               name="presentationTopic"
-              value={props.presentationTopic}
-              onChange={props.handleChange}
+              value={post.presentationTopic}
+              onChange={post.handleChange}
               placeholder="Presentation Topic"
             />
-            <p style={{ color: "red" }}>{props.errors.presentationTopic}</p>
           </FormGroup>
           <FormGroup>
             <Label>Article</Label>
             <Input
               type="text"
               name="article"
-              value={props.article}
-              onChange={props.handleChange}
+              value={post.article}
+              onChange={post.handleChange}
               placeholder="Article"
-    
             />
-            <p style={{ color: "red" }}>{props.errors.article}</p>
           </FormGroup>
-         
+          <FormGroup>
+            <Label>ID</Label>
+            <Input
+              type="text"
+              name="id"
+              value={post.id}
+              onChange={post.handleChange}
+              placeholder="ID"
+            />
+          </FormGroup>
           <FormGroup>
             <Label>Current Time</Label>
             <Input
               type="text"
               name="currentTime"
-              value={props.currentTime}
-              onChange={props.handleChange}
+              value={post.currentTime}
+              onChange={post.handleChange}
               placeholder="currentTime"
             />
           </FormGroup>
-          
           <div>
-            <Button color="primary">Add Presenters</Button>
+            <Button color="primary" onClick={post.updateComponentValue}>Edit Presenters</Button>
+            <Button color="primary" onClick={post.handelEditMode}>X</Button>
           </div>
         </Form>
       </div>
+      
       </div>
+    </div>
   );
 };
 
-export default AddPresenter;
+
+export default EditPresentation;

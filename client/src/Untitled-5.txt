@@ -1,16 +1,13 @@
-import React from "react";
-
+import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-
-const AddPresenter = props => {
- 
+const EditPresentation = props => {
   console.log(props)
-  console.log("props",props.name)
+  console.log("EditedName",props.name)
 
   return (
     <div className="container test">
-     
+      <div>
       <div className="container addPresentation">
         <Form onSubmit={props.handleSubmit} method="POST">
           <FormGroup>
@@ -23,7 +20,6 @@ const AddPresenter = props => {
               onChange={props.handleChange}
               placeholder="Presenter Name"
             />
-            <p style={{ color: "red" }}>{props.errors.name}</p>
           </FormGroup>
 
           <FormGroup>
@@ -35,7 +31,6 @@ const AddPresenter = props => {
               onChange={props.handleChange}
               placeholder="Evaluator Name"
             />
-            <p style={{ color: "red" }}>{props.errors.evaluatorName}</p>
           </FormGroup>
           <FormGroup>
             <Label>Presentation Topic</Label>
@@ -46,7 +41,6 @@ const AddPresenter = props => {
               onChange={props.handleChange}
               placeholder="Presentation Topic"
             />
-            <p style={{ color: "red" }}>{props.errors.presentationTopic}</p>
           </FormGroup>
           <FormGroup>
             <Label>Article</Label>
@@ -56,11 +50,18 @@ const AddPresenter = props => {
               value={props.article}
               onChange={props.handleChange}
               placeholder="Article"
-    
             />
-            <p style={{ color: "red" }}>{props.errors.article}</p>
           </FormGroup>
-         
+          <FormGroup>
+            <Label>ID</Label>
+            <Input
+              type="text"
+              name="id"
+              value={props.id}
+              onChange={props.handleChange}
+              placeholder="ID"
+            />
+          </FormGroup>
           <FormGroup>
             <Label>Current Time</Label>
             <Input
@@ -71,14 +72,17 @@ const AddPresenter = props => {
               placeholder="currentTime"
             />
           </FormGroup>
-          
           <div>
-            <Button color="primary">Add Presenters</Button>
+            <Button color="primary" onClick={props.updateComponentValue}>Edit Presenters</Button>
+            <Button color="primary" onClick={props.handelEditMode}>X</Button>
           </div>
         </Form>
       </div>
+      
       </div>
+    </div>
   );
 };
 
-export default AddPresenter;
+
+export default EditPresentation;

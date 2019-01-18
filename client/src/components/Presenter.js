@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { Table } from "reactstrap";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 
-export class Presenter extends Component {
-  render() {
+const  Presenter  = (props) => {
     const {
       name,
       evaluatorName,
@@ -13,7 +12,7 @@ export class Presenter extends Component {
       _id,
       monitor,
       currentTime
-    } = this.props.presenter;
+    } = props.presenter;
     return (
       <div>
         <div className="container">
@@ -29,8 +28,9 @@ export class Presenter extends Component {
                 <Link to={`/presenter/${_id}`}>
                   <FaEye />{" "}
                 </Link>
-                <FaEdit />
-                <FaTrash />
+                <Link to={`/presenters/edit/${_id}`}>
+                <FaEdit /></Link>
+                <FaTrash style={{ color: "red" }} />
                 {monitor}
               </td>
             </tr>
@@ -39,6 +39,6 @@ export class Presenter extends Component {
       </div>
     );
   }
-}
+
 
 export default Presenter;

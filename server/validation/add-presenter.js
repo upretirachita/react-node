@@ -4,10 +4,9 @@ const isEmpty = require ('./isEmpty');
 module.exports = function validateAddPresenterInput (data) {
   const errors = {};
   data.name = !isEmpty (data.name) ? data.name : '';
-  data.age = !isEmpty (data.age) ? data.age : '';
   data.evaluatorName = !isEmpty (data.evaluatorName) ? data.evaluatorName : '';
-  data.presentationTopic = !isEmpty (data. presentationTopic) ? data. presentationTopic : '';
-  data.presentationTopic = !isEmpty (data. presentationTopic) ? data. presentationTopic : '';
+  data.presentationTopic = !isEmpty (data.presentationTopic) ? data.presentationTopic : '';
+  data.article = !isEmpty (data.article) ? data.article: '';
 
   if (!validator.isLength (data.name, {min: 2, max: 15})) {
     errors.name = 'Name must be between 2 to 15 characters';
