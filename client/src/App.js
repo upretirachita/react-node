@@ -9,7 +9,8 @@ import AddPresenter from "./components/AddPresenter";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PresenterDetail from "./components/PresenterDetail";
-import EditPresentation from "./components/EditPresentation";
+import EditPresenter from "./components/EditPresenter";
+import Test from "./components/Test";
 
 function generateID() {
   var number = Math.random();
@@ -18,17 +19,12 @@ function generateID() {
   return id;
 }
 
+
+
 class App extends Component {
   state = {
     presenters: [],
-    name: "",
-    evaluatorName: "",
-    presentationTopic: "",
-    article: "",
-    monitor: "",
-    cancel: "",
-    isEditMode:false,
-    errors: {} 
+    errors: {},
   };
   componentDidMount() {
     axios.get("/presenters").then(response => {
@@ -71,6 +67,8 @@ class App extends Component {
       });
     console.log("This is validator", this.state);
   };
+ 
+
 
   deletePresenter = _id => {
     const presenters = this.state.presenters.filter(
@@ -90,7 +88,24 @@ class App extends Component {
     console.log("First", _id);
   };
 
-  editPresenter = () => {};
+
+  editPresenter = (_id, data) => {
+    const presenters = this.state.presenters.filter(
+      presenter => presenter._id !== _id
+    );
+    console.log("edited", presenters);
+    this.setState({
+      presenters,
+      flag: true
+    });
+    axios
+      .put(`/presenters/edit/${_id}`, data)
+      .then(response => {
+        //console.log ('I am responding',response);
+      })
+      .catch(err => console.log(err));
+    console.log("First", _id);
+  };
   /*
 deletePresenter = (presenter) => {
   const updatedVal = this.state.presenters.filter(pre => pre._id !== presenter._id);
@@ -120,16 +135,7 @@ deletePresenter = (presenter) => {
                 render={props => (
                   <AddPresenter
                     {...props}
-                    handleSubmit={this.handleSubmit}
-                    handleChange ={this.handleChange}
                     presenters={this.state.presenters}
-                    name={this.state.name}
-                    evaluatorName ={this.state.evaluatorName}
-                    presentationTopic ={this.state.presentationTopic}
-                    article ={this.state.article}
-                    monitor = {this.state.monitor}
-                    currentTime = {this.state.currentTime}
-                    isEditMode = {this.state.isEditMode}
                     errors= {this.state.errors}
                   />
                 )}
@@ -138,20 +144,23 @@ deletePresenter = (presenter) => {
                <Route
                 path="/presenters/edit/:_id"
                 render={props => (
-                  <EditPresentation
+                  <EditPresenter
                   {...props}
-                  handleSubmit={this.handleSubmit}
-                  handleChange ={this.handleChange}
-                  isEditMode={this.state.isEditMode}
                   presenters={this.state.presenters}
-                  name={this.state.name}
-                  evaluatorName ={this.state.evaluatorName}
-                  presentationTopic ={this.state.presentationTopic}
-                  article ={this.state.article}
-                  monitor = {this.state.monitor}
-                  currentTime = {this.state.currentTime}
-                  updateComponentValue={this.updateComponentValue}
-                  handelEditMode={this.handelEditMode}
+                  errors= {this.state.errors}
+                  editPresenter={this.editPresenter}
+                  handleEdit={this.handleEdit}
+                  />
+                )}
+              />
+              <Route
+                path="/presenters/test"
+                render={props => (
+                  <Test
+                  {...props}
+                  presenters={this.state.presenters}
+                  errors= {this.state.errors}
+                  handleEdit={this.handleEdit}
                   />
                 )}
               />

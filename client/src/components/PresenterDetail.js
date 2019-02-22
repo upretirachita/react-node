@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Button,Input } from "reactstrap";
-import EditPresentation from "./EditPresentation";
+import EditPresentation from "./EditPresenter";
 import { Link } from "react-router-dom";
 
 const PresenterDetail = props => {
@@ -17,7 +17,7 @@ const PresenterDetail = props => {
     console.log("newname", res);
   };
 */
-console.log("IDPresenterDETAIL",post._id)
+
   const deleteOneNode = () => {
     props.deletePresenter(post._id);
     props.history.push("/presenters");

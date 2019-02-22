@@ -3,71 +3,83 @@ import axios from "axios";
 import "./AddPresentation.css";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-
-
-class AddPresenter extends Component {
+class EditPresenter extends Component {
   state = {
     name: "",
-    age: "",
     evaluatorName: "",
     presentationTopic: "",
     article: "",
     monitor: "",
-    cancel: "",
     errors: {}
   };
+
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
-  
-  /*
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    axios
-      .post("/presenters", this.state)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => console.log(err));
-  };
-*/
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    let {
-      name,
-      evaluatorName,
-      presentationTopic,
-      article
-    } = this.state;
-    let data = { name, evaluatorName, presentationTopic, article };
-    axios
-      .post("/presenters", data)
-      .then(response => {
-        this.setState({
-          errors: {}
-        });
-        console.log("newResponse", response);
-      })
-      .catch(err => {
-        console.log("err", err);
-        return this.setState({
-          errors: err.response.data
-        });
-      });
-    console.log("This is validator", this.state);
-    this.props.history.push("/presenters");
-  };
 
+  componentWillMount = ()=> {
+    let number = 0;
+    this.props.presenters.forEach((person,index) => {if (person._id === this.props.match.params._id)
+      {number = index }})
+  this.setState({
+      name: this.props.presenters[number].name,
+      evaluatorName:this.props.presenters[number].evaluatorName,
+      presentationTopic:this.props.presenters[number].presentationTopic,
+      article:this.props.presenters[number].article,
+      _id:this.props.presenters[number].id
+    })
+    console.log("thsi one",this.props.name)
+    console.log("myIDEdit",this.props._id)
+} 
+
+
+handleSubmit = e => {
+  e.preventDefault();
+  const _id = this.props.match.params._id;
+  //console.log('IIIIDDDDDDD*' ,this.props.match.params._id);
+  
+  //console.log('stateeeeeeeeeeeeeeee: ',this.state);
+  let {
+    name,
+    evaluatorName,
+    presentationTopic,
+    article
+  } = this.state;
+  let data = { name, evaluatorName, presentationTopic, article };
+  this.props.editPresenter(_id, data);
+  axios
+    .put(`/presenters/edit/${_id}`,data)
+    .then(response => {
+      this.setState({
+        errors: {}
+      });
+      console.log("newResponse", response);
+    })
+    .catch(err => {
+      console.log("err", err);
+      return this.setState({
+        errors: err.response.data
+      });
+    });
+  console.log("This is validator", this.state);
+  this.props.history.push("/presenters");
+};
+
+ 
   render() {
-    console.log("props",this.props)
-    const { errors } = this.state;
+    
+    {/*console.log("thisisEditPROPS",this.props.presenters)
+    console.log("IDFROMedIT", this.props.match.params)
+    console.log("HISTORYedIT", this.props.history)
+    console.log("name",this.state.name)
+  console.log("match",this.props.match);*/}  
+      
     return (
       <div className="container addPresentation">
-        <Form onSubmit={this.handleSubmit} method="POST" >
+        <Form onSubmit={this.handleSubmit} >
           <FormGroup>
             <Label>Presenter Name:</Label>{" "}
             <Input
@@ -76,9 +88,8 @@ class AddPresenter extends Component {
               name="name"
               value={this.state.name}
               onChange={this.handleChange}
-              placeholder="Presenter Name"
+              placeholder={this.props.presenters.name}
             />
-            <p style={{ color: "red" }}>{errors.name}</p>
           </FormGroup>
 
           <FormGroup>
@@ -90,7 +101,7 @@ class AddPresenter extends Component {
               onChange={this.handleChange}
               placeholder="Evaluator Name"
             />
-            <p style={{ color: "red" }}>{errors.evaluatorName}</p>
+         
           </FormGroup>
           <FormGroup>
             <Label>Presentation Topic</Label>
@@ -101,7 +112,7 @@ class AddPresenter extends Component {
               onChange={this.handleChange}
               placeholder="Presentation Topic"
             />
-            <p style={{ color: "red" }}>{errors.presentationTopic}</p>
+    
           </FormGroup>
           <FormGroup>
             <Label>Article</Label>
@@ -112,7 +123,7 @@ class AddPresenter extends Component {
               onChange={this.handleChange}
               placeholder="Article"
             />
-            <p style={{ color: "red" }}>{errors.article}</p>
+         
           </FormGroup>
           <FormGroup>
             <Label>ID</Label>
@@ -135,7 +146,7 @@ class AddPresenter extends Component {
             />
           </FormGroup>
           <div>
-            <Button color="primary">Add Presenters</Button>
+            <Button color="primary">Edit Presenters</Button>
           </div>
         </Form>
       </div>
@@ -143,4 +154,4 @@ class AddPresenter extends Component {
   }
 }
 
-export default AddPresenter;
+export default EditPresenter;

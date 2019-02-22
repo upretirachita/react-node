@@ -64,13 +64,15 @@ function addStudent(req, res) {
 
 function editStudent (req, res) {
   const _id = req.params.id;
-  Student.findOne ({_id}, (err, student) => {
-    (student.name = req.body.name),
-    (student.age = req.body.age),
-    (student.evaluatorName = req.body.evaluatorName);
-    (student.presentationTopic = req.body.presentationTopic);
-    (student.article = req.body.article);
+  //console.log("inside edit Student, request: ", req.params);
+    Student.findOne ({_id}, (err, student) => {
+    console.group('before student assignment');
+    (student.name = req.body.name), 
+    (student.evaluatorName = req.body.evaluatorName),
+    (student.presentationTopic = req.body.presentationTopic),
+    (student.article = req.body.article),
     (student.currentTime = req.body.currentTime);
+    
     student.save (err => {
       if (err) {
         res.status (404).send (err);

@@ -12,7 +12,7 @@ studentRouter.get('/',(req, res) => res.send('Check /students route if there stu
 studentRouter.get ('/presenters', showStudents);
 studentRouter.get('/presenters/:id',showSingleStudent);
 studentRouter.post('/presenters', addStudent);
-studentRouter.put('/presenters/:id', editStudent);
+studentRouter.put('/presenters/edit/:id', editStudent);
 studentRouter.delete('/presenters/:id', deletePresenter);
 
 
